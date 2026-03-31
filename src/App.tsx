@@ -1,25 +1,19 @@
-import { useEffect, useState } from "react";
-import { getCats } from "./api/catService";
 import Card from "./components/Card";
-import type { CardItem } from "./types/cat";
+import useCats from "./hooks/useCats";
 
 function App() {
-  const [cats, setCats] = useState<CardItem[]>([]);
-
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        const data = await getCats(12);
-        setCats(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    loadData();
-  }, []);
+  const [cats, shuffleCats] = useCats();
 
   return (
     <main className="bg-jet w-screen h-screen overflow-hidden ">
+      <button
+        onClick={() => {
+          shuffleCats();
+        }}
+        className="bg-white w-full"
+      >
+        Shuffle
+      </button>
       <div className="flex flex-wrap gap-2">
         {cats.map((cat) => {
           return <Card image={cat.image} />;
