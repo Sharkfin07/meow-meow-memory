@@ -1,24 +1,16 @@
-import Card from "./components/Card";
+import GameBoard from "./components/GameBoard";
 import useCats from "./hooks/useCats";
 
 function App() {
-  const [cats, shuffleCats] = useCats();
+  const [cats, isLoading] = useCats();
+
+  if (isLoading) {
+    return <h1>Loading Meow...</h1>;
+  }
 
   return (
     <main className="bg-jet w-screen h-screen overflow-hidden ">
-      <button
-        onClick={() => {
-          shuffleCats();
-        }}
-        className="bg-white w-full"
-      >
-        Shuffle
-      </button>
-      <div className="flex flex-wrap gap-2">
-        {cats.map((cat) => {
-          return <Card image={cat.image} />;
-        })}
-      </div>
+      <GameBoard cats={cats} />
     </main>
   );
 }

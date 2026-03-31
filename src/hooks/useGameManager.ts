@@ -44,7 +44,7 @@ function useGameManager(
   };
 
   const handleCardClick = (cardId: string): void => {
-    if (game.clickedIds.cardId < 2) {
+    if (game.clickedIds[cardId] < 1) {
       increment(cardId);
     } else {
       reset();

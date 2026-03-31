@@ -1,11 +1,11 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import type { CardItem } from "../types/cat";
 import { getCats } from "../api/catService";
-import shuffleArray from "../utils/arrayShuffler";
 
-function useCats(): [CardItem[], () => void] {
+function useCats(): [CardItem[], boolean] {
   // States
   const [cats, setCats] = useState<CardItem[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   // State Effects
   useEffect(() => {
@@ -16,6 +16,8 @@ function useCats(): [CardItem[], () => void] {
         if (mounted) setCats(data);
       } catch (error) {
         console.error(error);
+      } finally {
+        setIsLoading(false);
       }
     };
     loadData();
@@ -24,12 +26,7 @@ function useCats(): [CardItem[], () => void] {
     };
   }, []);
 
-  // Functions
-  const shuffleCats = useCallback((): void => {
-    setCats((prev) => shuffleArray<CardItem>([...prev]));
-  }, []);
-
-  return [cats, shuffleCats];
+  return [cats, isLoading];
 }
 
 export default useCats;
