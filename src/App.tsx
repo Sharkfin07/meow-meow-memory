@@ -19,10 +19,12 @@ function App() {
   }, []);
 
   return (
-    <main className="bg-jet">
-      {cats.map((cat) => {
-        return <Card image={cat.image} />;
-      })}
+    <main className="bg-jet w-screen h-screen overflow-hidden ">
+      <div className="flex flex-wrap gap-2">
+        {cats.map((cat) => {
+          return <Card image={cat.image} />;
+        })}
+      </div>
     </main>
   );
 }
