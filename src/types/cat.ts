@@ -15,11 +15,5 @@ export interface CardItem {
 
 export interface GameState {
   currentScore: number;
-  bestScore: number;
-  clickedIds: CardCounter[];
-}
-
-export interface CardCounter {
-  id: string;
-  count: number;
+  clickedIds: Record<string, number>;
 }
