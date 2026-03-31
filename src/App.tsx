@@ -1,12 +1,16 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getCats } from "./api/catService";
+import Card from "./components/Card";
+import type { CardItem } from "./types/cat";
 
 function App() {
+  const [cats, setCats] = useState<CardItem[]>([]);
+
   useEffect(() => {
     const loadData = async () => {
       try {
         const data = await getCats(12);
-        return data;
+        setCats(data);
       } catch (error) {
         console.error(error);
       }
@@ -15,8 +19,10 @@ function App() {
   }, []);
 
   return (
-    <main>
-      <h1>Hello World!</h1>
+    <main className="bg-jet">
+      {cats.map((cat) => {
+        return <Card image={cat.image} />;
+      })}
     </main>
   );
 }
