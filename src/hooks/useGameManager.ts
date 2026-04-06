@@ -18,6 +18,18 @@ function useGameManager(
   });
 
   const [cards, setCards] = useState(initialCats);
+  const [prevInitialCats, setPrevInitialCats] = useState(initialCats);
+
+  if (initialCats !== prevInitialCats) {
+    setPrevInitialCats(initialCats);
+    setCards(initialCats);
+
+    const initialClickedIds: Record<string, number> = {};
+    initialCats.forEach((cat) => {
+      initialClickedIds[cat.id] = 0;
+    });
+    setGame((prev) => ({ ...prev, clickedIds: initialClickedIds }));
+  }
 
   const increment = (clickedId: string) => {
     const newClickedIds = {

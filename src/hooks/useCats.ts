@@ -12,7 +12,7 @@ function useCats(): [CardItem[], boolean] {
     let mounted = true;
     const loadData = async () => {
       try {
-        const data = await getCats(12);
+        const data = await getCats(12, true);
         if (mounted) setCats(data);
       } catch (error) {
         console.error(error);

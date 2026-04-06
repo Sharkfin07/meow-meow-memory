@@ -9,7 +9,7 @@ export const getCats = async (
     params: { limit },
   });
 
-  if (debug) console.log("API response:", response.data);
+  if (debug) console.log("API response: ", response.data);
 
   return response.data.map((cat) => ({
     id: cat.id,

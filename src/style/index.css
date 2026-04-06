@@ -1,10 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Jersey+10&family=Micro+5&display=swap");
 @import "tailwindcss";
-@import url("https://fonts.googleapis.com/css2?family=Bitcount+Grid+Double:wght@100..900&family=Bitcount+Single:wght@100..900&family=IBM+Plex+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
 
 @theme {
   --color-jet: #2a2a2a;
   --color-orange-tabby: #e76f2e;
-  --font-bitcount-single: "Bitcount Single", system-ui;
-  --font-bitcount-double: "Bitcount Grid Double", system-ui;
-  --font-ibm: "IBM Plex Serif", serif;
+  --font-micro: "Micro 5", sans-serif;
+  --font-jersey: "Jersey 10", monospace;
+}
+
+@layer base {
+  body {
+    color: rgb(185, 185, 185);
+    font-family: var(--font-micro);
+  }
+
+  h1 {
+    font-size: var(--text-3xl);
+    font-weight: var(--font-weight-bold);
+    font-family: var(--font-jersey);
+  }
 }
