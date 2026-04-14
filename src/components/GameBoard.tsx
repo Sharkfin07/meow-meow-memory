@@ -18,6 +18,15 @@ export default function GameBoard({ cats }: GameBoardProps) {
             Score: {game.currentScore}
           </p>
         </div>
+        <div className="text-right text-white drop-shadow-md">
+          <h2 className="text-xl sm:text-2xl font-bold font-jersey tracking-wide">
+            How to Play?
+          </h2>
+          <p className="text-xs sm:text-sm font-medium leading-tight max-w-37.5 sm:max-w-50">
+            Click on a cat to earn points, but don't click on any cat more than
+            once!
+          </p>
+        </div>
       </div>
 
       {/* Grid Container (Scrollable if height is too small, ensures 1 viewport height compatibility) */}

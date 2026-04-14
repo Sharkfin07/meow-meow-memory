@@ -2,6 +2,7 @@ import { useLottie } from "lottie-react";
 import GameBoard from "./components/GameBoard";
 import useCats from "./hooks/useCats";
 import bitCat from "./assets/lottie/bitCat.json";
+import Logo from "./components/Logo";
 
 function App() {
   const [cats, isLoading] = useCats();
@@ -14,7 +15,7 @@ function App() {
 
   const main = isLoading ? (
     <>
-      <h1>Loading Meow...</h1>
+      <h2>Loading Meow...</h2>
       <div className="w-64 h-64">{View}</div>
     </>
   ) : (
@@ -23,7 +24,9 @@ function App() {
 
   return (
     <main className="bg-jet w-screen h-screen overflow-hidden flex justify-center items-center flex-col">
-      <h1>Meow-Meow Memory</h1>
+      <div className="mb-3">
+        <Logo />
+      </div>
       {main}
     </main>
   );
