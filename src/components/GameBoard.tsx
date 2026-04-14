@@ -1,6 +1,23 @@
+import { useCallback } from "react";
+import meowSfx1 from "../assets/audio/cat-meow-1.mp3";
+import meowSfx2 from "../assets/audio/cat-meow-2.mp3";
+import meowSfx3 from "../assets/audio/cat-meow-3.mp3";
 import useGameManager from "../hooks/useGameManager";
 import type { CardItem } from "../types/cat";
 import Card from "./Card";
+
+const sfxConfigs = [
+  { src: meowSfx1, volume: 0.7 },
+  { src: meowSfx2, volume: 0.7 },
+  { src: meowSfx3, volume: 0.2 }, // volume max is 1.0, set back to lower for comfort
+];
+
+// Preload audio objects outside the component component so they cache instantly and reduce lag
+const preloadedAudio = sfxConfigs.map((config) => {
+  const audio = new Audio(config.src);
+  audio.volume = config.volume;
+  return audio;
+});
 
 type GameBoardProps = {
   cats: CardItem[];
@@ -8,6 +25,18 @@ type GameBoardProps = {
 
 export default function GameBoard({ cats }: GameBoardProps) {
   const [game, cards, handleCardClick] = useGameManager(cats);
+
+  const playSfx = useCallback(() => {
+    // Pick a preloaded audio randomly
+    const pickedAudio =
+      preloadedAudio[Math.floor(Math.random() * preloadedAudio.length)];
+
+    // cloneNode allows overlapping playback if the user clicks very fast
+    const soundClone = pickedAudio.cloneNode() as HTMLAudioElement;
+    soundClone.volume = pickedAudio.volume;
+
+    soundClone.play().catch((e) => console.error("Audio playback error:", e));
+  }, []);
 
   return (
     <section className="flex flex-col max-w-200 sm:max-h-[85vh] bg-linear-to-b from-orange-400 to-orange-500 py-6 px-4 sm:px-8 rounded-3xl border-4 border-amber-300 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
@@ -36,7 +65,10 @@ export default function GameBoard({ cats }: GameBoardProps) {
             return (
               <button
                 key={card.id}
-                onClick={() => handleCardClick(card.id)}
+                onClick={() => {
+                  playSfx();
+                  handleCardClick(card.id);
+                }}
                 className="relative w-full aspect-square outline-none focus-visible:ring-4 focus-visible:ring-white rounded-2xl"
               >
                 <Card image={card.image} />
